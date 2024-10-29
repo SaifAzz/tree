@@ -6,7 +6,7 @@ const Tree = ({ data }) => {
     <div className="tree">
       <ul>
         <TreeNode
-          node={{ name: "Expand", number_of_hadiths: 0 }} // Placeholder for leader
+          node={{ name: "Leader", number_of_hadiths: 0 }} // Placeholder for leader
           childrenData={data} // Pass the child nodes data here
         />
       </ul>
