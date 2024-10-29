@@ -241,3 +241,19 @@ h1 {
 }
 
 
+.load-more-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.load-more-icon {
+  font-size: 24px;
+  color: #007bff; /* Customize color */
+  transition: color 0.3s;
+}
+
+.load-more-button:hover .load-more-icon {
+  color: #0056b3; /* Hover color */
+}

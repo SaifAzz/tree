@@ -2,39 +2,24 @@ import React from "react";
 import { FaUserFriends } from "react-icons/fa";
 import { MdPerson } from "react-icons/md";
 
-function CustomBox({ childNode, onClick }) {
-  const hasTrainedDays = childNode.trainedDays !== undefined && childNode.trainedDays !== null;
-  const hasFriends = childNode.friends !== undefined && childNode.friends !== null;
+function CustomBox({childNode, onClick }) {
+  const hasHadiths = childNode?.number_of_hadiths !== undefined && childNode?.number_of_hadiths !== null;
 
   return (
     <>
       <div className="node-box">
         <a href="#" onClick={onClick} className="node-content">
-          {childNode.imageFileUrl && (
-            <img src={childNode.imageFileUrl} alt={childNode.name} className="node-image" />
-          )}
           <div className="node-text">
-            <div className="node-name">{childNode.name}</div>
-            <div className="node-job-description">
-              {childNode.jobDescription}
-            </div>
+            <div className="node-name">{childNode?.name}</div>
           </div>
         </a>
       </div>
-      {(hasTrainedDays || hasFriends) && (
+      {hasHadiths && (
         <div className="trained-days-box">
-          {hasTrainedDays && (
-            <div>
-              <MdPerson size={20} className="trained-days-icon" />
-              <span className="trained-days-text">{childNode.trainedDays}</span>
-            </div>
-          )}
-          {hasFriends && (
-            <div>
-              <FaUserFriends size={20} className="trained-days-icon" />
-              <span className="trained-days-text">{childNode.friends}</span>
-            </div>
-          )}
+          <div>
+            <MdPerson size={20} className="trained-days-icon" />
+            <span className="trained-days-text">{childNode?.number_of_hadiths}</span>
+          </div>
         </div>
       )}
     </>
