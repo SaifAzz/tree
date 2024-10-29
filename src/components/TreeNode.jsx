@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import CustomBox from './CustomBox';
 import '../styles.css';
 import DefaultParentNode from './ParentDefaultBox';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 const TreeNode = ({ node, childrenData, path = [] }) => {
   const [expandChildrenNodes, setExpandChildrenNodes] = useState(true);
@@ -10,7 +12,6 @@ const TreeNode = ({ node, childrenData, path = [] }) => {
   const shouldScroll = childrenData?.mens?.length > displayedCount;
 
   const handleNodeClick = () => {
-    // Reset everything and collapse all nodes
     setExpandChildrenNodes(!expandChildrenNodes);
     setFetchedData({});
   };
@@ -21,19 +22,15 @@ const TreeNode = ({ node, childrenData, path = [] }) => {
 
   const handleChildClick = async (child) => {
     try {
-      // Construct the full path including the current child
       const fullPath = [...path, child.name];
-
-      // Toggle the expansion state for the clicked child
       setFetchedData((prev) => ({
         [child.name]: {
           ...prev[child.name],
           expanded: !prev[child.name]?.expanded,
         }
       }));
-      setExpandChildrenNodes(true);  // Ensure children nodes section is expanded
+      setExpandChildrenNodes(true);
 
-      // Fetch data only if it hasn't been fetched already
       if (!fetchedData[child.name]?.data) {
         const response = await fetch('https://cca9-2001-9e8-65cd-1800-d4b3-f4e4-1548-7514.ngrok-free.app/developer', {
           method: 'POST',
@@ -42,7 +39,7 @@ const TreeNode = ({ node, childrenData, path = [] }) => {
             'Accept': 'application/json',
           },
           body: JSON.stringify({
-            path: fullPath, // Send the full path in the request
+            path: fullPath,
             mens: [{ name: child.name }]
           }),
         });
@@ -51,7 +48,6 @@ const TreeNode = ({ node, childrenData, path = [] }) => {
 
         const data = await response.json();
 
-        // Save fetched data and set the new child as expanded
         setFetchedData((prev) => ({
           ...prev,
           [child.name]: { data, expanded: true }
@@ -84,7 +80,7 @@ const TreeNode = ({ node, childrenData, path = [] }) => {
           {displayedCount < childrenData?.mens?.length && (
             <li>
               <button onClick={handleLoadMore} className="load-more-button">
-                Load More
+                <FontAwesomeIcon icon={faPlus} className="load-more-icon" />
               </button>
             </li>
           )}
